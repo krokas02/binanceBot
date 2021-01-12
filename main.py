@@ -52,7 +52,9 @@ while mainLoop:
                 symbol = x
                 print(symbol)
                 BTC = client.get_historical_klines(symbol=symbol, interval='3m', start_str="1 hour ago UTC")
-                if ((float(BTC[-1][2]) - float(BTC[-2][3])) / float(BTC[-2][3]) * 100) > float(buyPercent):
+                priceSpike = (float(BTC[-1][2]) - float(BTC[-2][3])) / float(BTC[-2][3]) * 100
+                print(priceSpike)
+                if priceSpike > float(buyPercent):
                     print('Buyyy')
                     client.order_market_buy(symbol=symbol, quantity=quantity)
                     order = True
