@@ -32,10 +32,6 @@ print("##########################################")
 print("########### Python Binance Bot ###########")
 print("##########################################")
 while mainLoop:
-    print(currencies)
-    tickers = client.get_all_tickers()
-    print(tickers)
-
     print("Input: ")
     inputCommand = input()
     clear()
@@ -56,14 +52,10 @@ while mainLoop:
                 symbol = x
                 print(symbol)
                 BTC = client.get_historical_klines(symbol=symbol, interval='3m', start_str="1 hour ago UTC")
-                if ((float(BTC[-1][2]) - float(BTC[-2][3])) / float(BTC[-1][3]) * 100) > float(buyPercent):
+                if ((float(BTC[-1][2]) - float(BTC[-2][3])) / float(BTC[-2][3]) * 100) > float(buyPercent):
                     print('Buyyy')
                     client.order_market_buy(symbol=symbol, quantity=quantity)
                     order = True
-                #elif ((float(BTC[-1][2]) - float(BTC[-2][3]))/BTC[-1][3]*100) < 5:
-                    #print('Sellll')
-                    #client.order_market_buy(symbol=symbol, quantity=quantity)
-                    #order = True
                 else:
                     print('Do nothing')
                 sleep(0.2)
